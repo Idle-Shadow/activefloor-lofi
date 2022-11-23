@@ -36,12 +36,14 @@ public class MatchDirector : MonoBehaviour
         NextEquation();
     }
 
-    void OnEnable() {
+    void OnEnable()
+    {
         Player.PlayerHasAnswered += CheckAnswers;
         Timer.TimerExpired += EndGame;
     }
 
-    void OnDisable() {
+    void OnDisable()
+    {
         Player.PlayerHasAnswered -= CheckAnswers;
         Timer.TimerExpired -= EndGame;
     }
@@ -84,7 +86,11 @@ public class MatchDirector : MonoBehaviour
                 bool positionFilled = false;
                 while (!positionFilled)
                 {
-                    int randomNumber = UnityEngine.Random.Range(1, EquationGenerator.CurrentHighestNumber);
+                    int randomNumber = UnityEngine.Random.Range
+                    (
+                        Mathf.Max(correctAnswer - 20, 1),
+                        correctAnswer + 20
+                    );
                     bool numberAlreadyPresent = false;
                     foreach (AnswerButton button in player.Buttons)
                     {
