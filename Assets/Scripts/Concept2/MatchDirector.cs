@@ -90,7 +90,7 @@ public class MatchDirector : MonoBehaviour
                     {
                         if (randomNumber == button.Number) numberAlreadyPresent = true;
                     }
-                    if (!numberAlreadyPresent)
+                    if (!numberAlreadyPresent && randomNumber != correctAnswer)
                     {
                         player.Buttons[i].ChangeNumber(randomNumber);
                         positionFilled = true;
