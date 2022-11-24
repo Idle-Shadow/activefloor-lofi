@@ -27,6 +27,9 @@ public class MatchDirector : MonoBehaviour
     public AudioClip ClipCorrect;
     public AudioClip ClipWrong;
 
+    public delegate void MatchEvents();
+    public static event MatchEvents PointScored;
+
     (int, int, int, string) _currentEquation;
     bool _player2HasResult;
     int _score = 0;
@@ -50,7 +53,7 @@ public class MatchDirector : MonoBehaviour
 
     void Update()
     {
-        TimerText.text = Mathf.FloorToInt(GameTimer.timeRemaining).ToString();
+        TimerText.text = Mathf.FloorToInt(GameTimer.TimeRemaining).ToString();
     }
 
     void NextEquation()
@@ -158,6 +161,7 @@ public class MatchDirector : MonoBehaviour
         GameTimer.AddTime(SecondsAddOnSucces);
         _score++;
         ScoreText.text = _score.ToString();
+        PointScored.Invoke();
     }
 
     void AnswerWrong()

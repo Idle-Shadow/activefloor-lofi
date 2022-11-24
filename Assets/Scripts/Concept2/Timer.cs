@@ -1,50 +1,52 @@
 using UnityEngine;
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 10;
-    public bool timerIsRunning = false;
+    public float MaxTime = 60;
+    public float TimeRemaining;
+    public bool TimerIsRunning = false;
     public delegate void TimerEvents();
     public static event TimerEvents TimerExpired;
 
-    private void Start()
+    void Start()
     {
-        timerIsRunning = true;
+        TimeRemaining = MaxTime;
+        TimerIsRunning = true;
     }
 
     void Update()
     {
-        if (timerIsRunning)
+        if (TimerIsRunning)
         {
-            if (timeRemaining > 0)
+            if (TimeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime;
+                TimeRemaining -= Time.deltaTime;
             }
             else
             {
                 TimerExpired.Invoke();
-                timeRemaining = 0;
-                timerIsRunning = false;
+                TimeRemaining = 0;
+                TimerIsRunning = false;
             }
         }
     }
 
     public void Pause()
     {
-        timerIsRunning = false;
+        TimerIsRunning = false;
     }
 
     public void Resume()
     {
-        timerIsRunning = true;
+        TimerIsRunning = true;
     }
 
     public void AddTime(float amount)
     {
-        timeRemaining += amount;
+        TimeRemaining = Mathf.Min(TimeRemaining + amount, MaxTime);
     }
 
     public void SubtractTime(float amount)
     {
-        timeRemaining -= amount;
+        TimeRemaining -= amount;
     }
 }
