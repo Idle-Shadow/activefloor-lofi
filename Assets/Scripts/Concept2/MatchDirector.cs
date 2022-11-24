@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -91,8 +90,8 @@ public class MatchDirector : MonoBehaviour
                 {
                     int randomNumber = UnityEngine.Random.Range
                     (
-                        Mathf.Max(correctAnswer - 20, 1),
-                        correctAnswer + 20
+                        Mathf.Max(correctAnswer - Mathf.FloorToInt(correctAnswer * .2f), 1),
+                        Mathf.Max(correctAnswer + Mathf.FloorToInt(correctAnswer * .2f), 20)
                     );
                     bool numberAlreadyPresent = false;
                     foreach (AnswerButton button in player.Buttons)

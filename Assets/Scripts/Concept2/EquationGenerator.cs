@@ -8,9 +8,23 @@ public class EquationGenerator : MonoBehaviour
     public OperatorMode GlobalMode { get; private set; } = OperatorMode.add;
     public OperatorMode CurrentMode { get; private set; }
     public int CurrentHighestNumber { get; private set; }
+    public bool IncreaseDifficultyWhenScored = false;
+    public float DifficultyIncrease = .1f;
 
     public delegate void EquationGeneratorEvents();
     public static event EquationGeneratorEvents GlobalModeChanged;
+
+    int _difficulty = 0;
+
+    void OnEnable()
+    {
+        MatchDirector.PointScored += IncreaseDifficulty;
+    }
+
+    void OnDisable()
+    {
+        MatchDirector.PointScored -= IncreaseDifficulty;
+    }
 
     public (int, int, int, string) GenerateEquation()
     {
@@ -32,8 +46,9 @@ public class EquationGenerator : MonoBehaviour
                 break;
         }
 
-        equation.Item1 = Random.Range(1, CurrentHighestNumber);
-        equation.Item2 = Random.Range(1, CurrentHighestNumber);
+        int difficultyAddition = Mathf.FloorToInt(_difficulty * DifficultyIncrease * CurrentHighestNumber);
+        equation.Item1 = Random.Range(1 + difficultyAddition, CurrentHighestNumber + difficultyAddition);
+        equation.Item2 = Random.Range(1 + difficultyAddition, CurrentHighestNumber + difficultyAddition);
 
         switch (CurrentMode)
         {
@@ -62,5 +77,13 @@ public class EquationGenerator : MonoBehaviour
     {
         GlobalMode = (OperatorMode)modeIndex;
         GlobalModeChanged.Invoke();
+    }
+
+    void IncreaseDifficulty()
+    {
+        if (IncreaseDifficultyWhenScored)
+        {
+            _difficulty++;
+        }
     }
 }
