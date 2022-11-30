@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour
             }
             else
             {
-                TimerExpired.Invoke();
+                if (TimerExpired != null) TimerExpired.Invoke();
                 TimeRemaining = 0;
                 TimerIsRunning = false;
             }
