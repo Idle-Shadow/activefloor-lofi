@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00bd09b81d8af64f99974c29a9ea5b2, type: 3}
+  m_Name: Mixed
+  m_EditorClassIdentifier: 
+  TargetModes:
+  - OperatorMode: {fileID: 11400000, guid: 44931d623d47ac54a98d107f6b557a9c, type: 2}
+    LowestNumber: 1
+    HighestNumber: 60
+  - OperatorMode: {fileID: 11400000, guid: 4e88e93453d7ad04e90e9fb5e40e39d8, type: 2}
+    LowestNumber: 1
+    HighestNumber: 10
+  - OperatorMode: {fileID: 11400000, guid: 507a7970b23aadf4ca6d0778382c0580, type: 2}
+    LowestNumber: 1
+    HighestNumber: 15
+  - OperatorMode: {fileID: 11400000, guid: 24dfad39a282e0c4b8a9dd1da696ce8a, type: 2}
+    LowestNumber: 1
+    HighestNumber: 40
+  IncreaseDifficultyWhenScored: 1
+  DifficultyIncrease: 0.1

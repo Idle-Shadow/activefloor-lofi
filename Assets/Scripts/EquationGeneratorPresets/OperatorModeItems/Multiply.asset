@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d53b0fb328203b24a9fc184af5c6f27e, type: 3}
-  m_Name: Add
+  m_Name: Multiply
   m_EditorClassIdentifier: 
-  Mode: 0
-  StringRepresentation: +
-  LowestNumber: 1
-  HighestNumber: 60
+  Mode: 1
+  StringRepresentation: x

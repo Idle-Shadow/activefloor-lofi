@@ -1,22 +1,9 @@
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class EquationGenerator : MonoBehaviour
 {
-    [Serializable]
-    public class ModeWithToggle
-    {
-        public OperatorModeItem OperatorMode;
-        public bool ModeEnabled = false;
-    }
-    public List<ModeWithToggle> TargetModes;
-    public OperatorModeItem CurrentMode { get; private set; }
-    public bool IncreaseDifficultyWhenScored = false;
-    public float DifficultyIncrease = .1f;
-
-    public delegate void EquationGeneratorEvents();
-    public static event EquationGeneratorEvents TargetModesChanged;
+    public EquationGeneratorPreset GeneratorPreset;
+    public EquationGeneratorPreset.ModeSettings CurrentModeSettings { get; private set; }
 
     int _difficulty = 0;
 
@@ -30,26 +17,22 @@ public class EquationGenerator : MonoBehaviour
         MatchDirector.PointScored -= IncreaseDifficulty;
     }
 
+    public void SetNewGeneratorPreset (EquationGeneratorPreset preset)
+    {
+        GeneratorPreset = preset;
+    }
+
     public (int, int, int) GenerateEquation()
     {
         (int, int, int) equation = (0, 0, 0);
 
-        bool ModeSelected = false;
-        while (!ModeSelected)
-        {
-            ModeWithToggle mode = TargetModes[UnityEngine.Random.Range(0, TargetModes.Count)];
-            if (mode.ModeEnabled)
-            {
-                ModeSelected = true;
-                CurrentMode = mode.OperatorMode;
-            }
-        }
+        CurrentModeSettings = GeneratorPreset.TargetModes[Random.Range(0, GeneratorPreset.TargetModes.Count)];
 
         (int, int) randomNumbers = GenerateRandomNumbers();
         equation.Item1 = randomNumbers.Item1;
         equation.Item2 = randomNumbers.Item2;
 
-        switch (CurrentMode.Mode)
+        switch (CurrentModeSettings.OperatorMode.Mode)
         {
             case OperatorMode.add:
                 equation.Item3 = equation.Item1 + equation.Item2;
@@ -68,15 +51,9 @@ public class EquationGenerator : MonoBehaviour
         return equation;
     }
 
-    public void ToggleTargetMode(OperatorModeItem mode, bool modeEnabled)
-    {
-        TargetModes.Find(x => x.OperatorMode == mode).ModeEnabled = modeEnabled;
-        if (TargetModesChanged != null) TargetModesChanged.Invoke();
-    }
-
     void IncreaseDifficulty()
     {
-        if (IncreaseDifficultyWhenScored)
+        if (GeneratorPreset.IncreaseDifficultyWhenScored)
         {
             _difficulty++;
         }
@@ -84,18 +61,18 @@ public class EquationGenerator : MonoBehaviour
 
     (int, int) GenerateRandomNumbers()
     {
-        int difficultyAddition = Mathf.FloorToInt(_difficulty * DifficultyIncrease * CurrentMode.HighestNumber);
-        int floor = CurrentMode.LowestNumber + difficultyAddition;
-        int ceil = CurrentMode.HighestNumber + difficultyAddition;
+        int difficultyAddition = Mathf.FloorToInt(_difficulty * GeneratorPreset.DifficultyIncrease * CurrentModeSettings.HighestNumber);
+        int floor = CurrentModeSettings.LowestNumber + difficultyAddition;
+        int ceil = CurrentModeSettings.HighestNumber + difficultyAddition;
         int number1;
         int number2;
 
         do {
-            number1 = UnityEngine.Random.Range(floor, ceil);
-            number2 = UnityEngine.Random.Range(floor, ceil);
-        } while (number1 == number2 || (CurrentMode.Mode == OperatorMode.divide && number1 % number2 != 0));
+            number1 = Random.Range(floor, ceil);
+            number2 = Random.Range(floor, ceil);
+        } while (number1 == number2 || (CurrentModeSettings.OperatorMode.Mode == OperatorMode.divide && number1 % number2 != 0));
 
-        switch (CurrentMode.Mode)
+        switch (CurrentModeSettings.OperatorMode.Mode)
         {
             case OperatorMode.subtract:
                 if (number1 > number2) return (number1, number2);

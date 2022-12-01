@@ -65,10 +65,10 @@ public class MatchDirector : MonoBehaviour
         else InitialisePlayerAnswers(Player2, _currentEquation.Item2);
 
         EquationText.text = String.Format("<b><color=blue>P1</color></b> {0} {1} = {2}",
-            EquationGenerator.CurrentMode.StringRepresentation,
+            EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation,
             _player2HasResult ? _currentEquation.Item2 : "<b><color=red>P2</color></b>",
             _player2HasResult ? "<b><color=red>P2</color></b>" : _currentEquation.Item3);
-        DebugText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        DebugText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         DisplayImage.color = Color.white;
 
         Player1.ResetPlayer();
@@ -113,7 +113,7 @@ public class MatchDirector : MonoBehaviour
         if (!Player1.HasAnswered || !Player2.HasAnswered) return;
 
         GameTimer.Pause();
-        EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         int[] equationElements = new int[3] {
             Player1.ChosenAnswer.Number,
             _player2HasResult ? _currentEquation.Item2 : Player2.ChosenAnswer.Number,
@@ -121,7 +121,7 @@ public class MatchDirector : MonoBehaviour
         };
 
         bool check = false;
-        switch (EquationGenerator.CurrentMode.Mode)
+        switch (EquationGenerator.CurrentModeSettings.OperatorMode.Mode)
         {
             case OperatorMode.add:
                 check = equationElements[0] + equationElements[1] == equationElements[2];

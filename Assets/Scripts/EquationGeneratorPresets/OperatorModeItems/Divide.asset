@@ -14,5 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mode: 3
   StringRepresentation: "\xF7"
-  LowestNumber: 1
-  HighestNumber: 10

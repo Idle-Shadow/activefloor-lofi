@@ -14,5 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mode: 2
   StringRepresentation: '-'
-  LowestNumber: 1
-  HighestNumber: 40
