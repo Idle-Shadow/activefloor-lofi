@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
             else Buttons[i].PressReset();
         }
         HasAnswered = true;
-        PlayerHasAnswered.Invoke();
+        if (PlayerHasAnswered != null) PlayerHasAnswered.Invoke();
     }
 
     public void ResetPlayer()

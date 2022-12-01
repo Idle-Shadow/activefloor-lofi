@@ -10,6 +10,7 @@ public class MatchDirector : MonoBehaviour
     public float NewEquationInterval = 3;
     public float SecondsAddOnSucces = 10;
     public float SecondsSubtractOnFail = 10;
+    public int Score { get; private set; } = 0;
 
     public Player Player1;
     public Player Player2;
@@ -29,9 +30,8 @@ public class MatchDirector : MonoBehaviour
     public delegate void MatchEvents();
     public static event MatchEvents PointScored;
 
-    (int, int, int, string) _currentEquation;
+    (int, int, int) _currentEquation;
     bool _player2HasResult;
-    int _score = 0;
 
     void Start()
     {
@@ -65,10 +65,10 @@ public class MatchDirector : MonoBehaviour
         else InitialisePlayerAnswers(Player2, _currentEquation.Item2);
 
         EquationText.text = String.Format("<b><color=blue>P1</color></b> {0} {1} = {2}",
-            _currentEquation.Item4,
+            EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation,
             _player2HasResult ? _currentEquation.Item2 : "<b><color=red>P2</color></b>",
             _player2HasResult ? "<b><color=red>P2</color></b>" : _currentEquation.Item3);
-        DebugText.text = $"{_currentEquation.Item1} {_currentEquation.Item4} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        DebugText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         DisplayImage.color = Color.white;
 
         Player1.ResetPlayer();
@@ -88,19 +88,19 @@ public class MatchDirector : MonoBehaviour
                 bool positionFilled = false;
                 while (!positionFilled)
                 {
-                    int randomNumber = UnityEngine.Random.Range
-                    (
-                        Mathf.Max(correctAnswer - Mathf.FloorToInt(correctAnswer * .2f), 1),
-                        Mathf.Max(correctAnswer + Mathf.FloorToInt(correctAnswer * .2f), 20)
-                    );
+                    int floor = Mathf.Max(correctAnswer - Mathf.FloorToInt(correctAnswer * .2f), 1);
+                    int ceil = Mathf.Max(correctAnswer + Mathf.FloorToInt(correctAnswer * .2f), 20);
+                    int candidate = UnityEngine.Random.Range(floor, ceil);
+
                     bool numberAlreadyPresent = false;
                     foreach (AnswerButton button in player.Buttons)
                     {
-                        if (randomNumber == button.Number) numberAlreadyPresent = true;
+                        if (candidate == button.Number) numberAlreadyPresent = true;
                     }
-                    if (!numberAlreadyPresent && randomNumber != correctAnswer)
+
+                    if (!numberAlreadyPresent && candidate != correctAnswer)
                     {
-                        player.Buttons[i].ChangeNumber(randomNumber);
+                        player.Buttons[i].ChangeNumber(candidate);
                         positionFilled = true;
                     }
                 }
@@ -113,30 +113,32 @@ public class MatchDirector : MonoBehaviour
         if (!Player1.HasAnswered || !Player2.HasAnswered) return;
 
         GameTimer.Pause();
-        EquationText.text = $"{_currentEquation.Item1} {_currentEquation.Item4} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        int[] equationElements = new int[3] {
+            Player1.ChosenAnswer.Number,
+            _player2HasResult ? _currentEquation.Item2 : Player2.ChosenAnswer.Number,
+            _player2HasResult ? Player2.ChosenAnswer.Number : _currentEquation.Item3
+        };
 
-        if (!_player2HasResult)
+        bool check = false;
+        switch (EquationGenerator.CurrentModeSettings.OperatorMode.Mode)
         {
-            if (EquationGenerator.CurrentMode == OperatorMode.add &&
-                Player1.ChosenAnswer.Number + Player2.ChosenAnswer.Number == _currentEquation.Item3 ||
-                EquationGenerator.CurrentMode == OperatorMode.multiply &&
-                Player1.ChosenAnswer.Number * Player2.ChosenAnswer.Number == _currentEquation.Item3)
-            {
-                AnswerCorrect();
-            }
-            else AnswerWrong();
+            case OperatorMode.add:
+                check = equationElements[0] + equationElements[1] == equationElements[2];
+                break;
+            case OperatorMode.multiply:
+                check = equationElements[0] * equationElements[1] == equationElements[2];
+                break;
+            case OperatorMode.subtract:
+                check = equationElements[0] - equationElements[1] == equationElements[2];
+                break;
+            case OperatorMode.divide:
+                check = equationElements[0] / equationElements[1] == equationElements[2];
+                break;
         }
-        else
-        {
-            if (EquationGenerator.CurrentMode == OperatorMode.add &&
-                Player1.ChosenAnswer.Number + _currentEquation.Item2 == Player2.ChosenAnswer.Number ||
-                EquationGenerator.CurrentMode == OperatorMode.multiply &&
-                Player1.ChosenAnswer.Number * _currentEquation.Item2 == Player2.ChosenAnswer.Number)
-            {
-                AnswerCorrect();
-            }
-            else AnswerWrong();
-        }
+
+        if (check) AnswerCorrect();
+        else AnswerWrong();
 
         StartCoroutine(ResetInterval());
     }
@@ -158,9 +160,9 @@ public class MatchDirector : MonoBehaviour
         DisplayImage.color = Color.green;
         UIAudioSource.PlayOneShot(ClipCorrect);
         GameTimer.AddTime(SecondsAddOnSucces);
-        _score++;
-        ScoreText.text = _score.ToString();
-        PointScored.Invoke();
+        Score++;
+        ScoreText.text = Score.ToString();
+        if (PointScored != null) PointScored.Invoke();
     }
 
     void AnswerWrong()
