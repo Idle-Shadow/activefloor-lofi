@@ -88,18 +88,8 @@ public class MatchDirector : MonoBehaviour
                 bool positionFilled = false;
                 while (!positionFilled)
                 {
-                    int floor;
-                    int ceil;
-                    if (EquationGenerator.CurrentMode.Mode == OperatorMode.subtract && _player2HasResult)
-                    {
-                        floor = correctAnswer - 5 - Mathf.FloorToInt(correctAnswer * .2f);
-                        ceil = correctAnswer + 5 + Mathf.FloorToInt(correctAnswer * .2f);
-                    }
-                    else
-                    {
-                        floor = Mathf.Max(correctAnswer - Mathf.FloorToInt(correctAnswer * .2f), 1);
-                        ceil = Mathf.Max(correctAnswer + Mathf.FloorToInt(correctAnswer * .2f), 20);
-                    }
+                    int floor = Mathf.Max(correctAnswer - Mathf.FloorToInt(correctAnswer * .2f), 1);
+                    int ceil = Mathf.Max(correctAnswer + Mathf.FloorToInt(correctAnswer * .2f), 20);
                     int candidate = UnityEngine.Random.Range(floor, ceil);
 
                     bool numberAlreadyPresent = false;

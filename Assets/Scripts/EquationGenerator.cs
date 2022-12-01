@@ -95,6 +95,13 @@ public class EquationGenerator : MonoBehaviour
             number2 = UnityEngine.Random.Range(floor, ceil);
         } while (number1 == number2 || (CurrentMode.Mode == OperatorMode.divide && number1 % number2 != 0));
 
-        return (number1, number2);
+        switch (CurrentMode.Mode)
+        {
+            case OperatorMode.subtract:
+                if (number1 > number2) return (number1, number2);
+                else return (number2, number1);
+            default:
+                return (number1, number2);
+        }
     }
 }
