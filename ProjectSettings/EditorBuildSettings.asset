@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Concept2.unity
     guid: 94b8e502dfc62b548a0b354f9bf58a3c
+  - enabled: 1
+    path: Assets/Scenes/Personal Sandboxes/GeographyQuestions.unity
+    guid: 69d7228268fb18a43a28ed0d48558b74
   m_configObjects: {}
