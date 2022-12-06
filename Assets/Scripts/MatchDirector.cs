@@ -55,7 +55,7 @@ public class MatchDirector : MonoBehaviour
         TimerText.text = Mathf.FloorToInt(GameTimer.TimeRemaining).ToString();
     }
 
-    void NextEquation()
+    public void NextEquation()
     {
         _currentEquation = EquationGenerator.GenerateEquation();
         InitialisePlayerAnswers(Player1, _currentEquation.Item1);
@@ -73,6 +73,7 @@ public class MatchDirector : MonoBehaviour
 
         Player1.ResetPlayer();
         Player2.ResetPlayer();
+        // GameTimer.Resume();
     }
 
     void InitialisePlayerAnswers(Player player, int correctAnswer)
@@ -112,7 +113,7 @@ public class MatchDirector : MonoBehaviour
     {
         if (!Player1.HasAnswered || !Player2.HasAnswered) return;
 
-        GameTimer.Pause();
+        // GameTimer.Pause();
         EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         int[] equationElements = new int[3] {
             Player1.ChosenAnswer.Number,
@@ -140,14 +141,13 @@ public class MatchDirector : MonoBehaviour
         if (check) AnswerCorrect();
         else AnswerWrong();
 
-        StartCoroutine(ResetInterval());
+        // StartCoroutine(ResetInterval());
     }
 
     IEnumerator ResetInterval()
     {
         yield return new WaitForSeconds(NewEquationInterval);
         NextEquation();
-        GameTimer.Resume();
     }
 
     void EndGame()
