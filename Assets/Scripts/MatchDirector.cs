@@ -1,13 +1,11 @@
-using System.Collections;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MatchDirector : MonoBehaviour
 {
-    public float NewEquationInterval = 3;
     public float SecondsAddOnSucces = 10;
     public float SecondsSubtractOnFail = 10;
     public int Score { get; private set; } = 0;
@@ -55,7 +53,7 @@ public class MatchDirector : MonoBehaviour
         TimerText.text = Mathf.FloorToInt(GameTimer.TimeRemaining).ToString();
     }
 
-    void NextEquation()
+    public void NextEquation()
     {
         _currentEquation = EquationGenerator.GenerateEquation();
         InitialisePlayerAnswers(Player1, _currentEquation.Item1);
@@ -112,7 +110,6 @@ public class MatchDirector : MonoBehaviour
     {
         if (!Player1.HasAnswered || !Player2.HasAnswered) return;
 
-        GameTimer.Pause();
         EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         int[] equationElements = new int[3] {
             Player1.ChosenAnswer.Number,
@@ -139,15 +136,6 @@ public class MatchDirector : MonoBehaviour
 
         if (check) AnswerCorrect();
         else AnswerWrong();
-
-        StartCoroutine(ResetInterval());
-    }
-
-    IEnumerator ResetInterval()
-    {
-        yield return new WaitForSeconds(NewEquationInterval);
-        NextEquation();
-        GameTimer.Resume();
     }
 
     void EndGame()
