@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
             {
                 Buttons[i].Press();
                 ChosenAnswer = Buttons[i];
+                ChosenAnswer.ButtonNumber = i;
                 ButtonNumber = i;
             }
             else Buttons[i].PressReset();

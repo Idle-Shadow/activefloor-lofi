@@ -9,6 +9,8 @@ public class MatchQuestions : MonoBehaviour
 {
     [SerializeField] Timer gameTimer;
     [SerializeField] TMP_Text timerText;
+    [SerializeField] List<Sprite> amountOfFlags;
+    [SerializeField] List<string> capitalName;
     [SerializeField] float secondsAddOnSucces = 10;
     [SerializeField] float secondsSubtractOnFail = 10;
     [SerializeField] float newEquationInterval = 3;
@@ -21,8 +23,8 @@ public class MatchQuestions : MonoBehaviour
     [SerializeField] AudioClip clipCorrect;
     [SerializeField] AudioClip clipWrong;
 
-    private List<string> questions;
-    private List<string> compareQuestions;
+    [SerializeField] List<string> questions;
+    private List<string> duplicateQuestion;
     private int score = 0;
     private int questionNumber = 0;
 
@@ -31,30 +33,46 @@ public class MatchQuestions : MonoBehaviour
 
     void Start()
     {
-        questions = new List<string>();
-        compareQuestions = new List<string>();
+        //questions = new List<string>();
+        duplicateQuestion = new List<string>();
 
-        questions.Add("Which flags and capital is United Kingdom?");
+        duplicateQuestion.Add("Which flags and capital is United Kingdom?");
         //questions.Add("Which flags and capital is Italy?");
-        questions.Add("Which flags and capital is Sweden?");
-        questions.Add("Which flags and capital is Netherland?");
-        questions.Add("Which flags and capital is Spain?");
+        duplicateQuestion.Add("Which flags and capital is Sweden?");
+        duplicateQuestion.Add("Which flags and capital is Netherland?");
+        duplicateQuestion.Add("Which flags and capital is Spain?");
 
-        compareQuestions = questions;
+        //DuplicateQuestion = questions;
 
-        foreach(string c in compareQuestions)
+        /* for (int i = 0; i < DuplicateQuestion.Count; i++) 
         {
-            Debug.Log(c.ToString());
+            string temp = DuplicateQuestion[i];
+            int randomIndex = Random.Range(i, DuplicateQuestion.Count);
+            DuplicateQuestion[i] = DuplicateQuestion[randomIndex];
+            DuplicateQuestion[randomIndex] = temp;
+        } */
+
+        RandomizeList(duplicateQuestion, null);
+        RandomizeList(capitalName, null);
+        //RandomizeList(null, amountOfFlags);
+
+        foreach(string a in capitalName)
+        {
+            Debug.Log(a.ToString());
         }
 
-        for (int i = 0; i < questions.Count; i++) 
+        foreach(string q in duplicateQuestion)
         {
-            string temp = questions[i];
-            int randomIndex = Random.Range(i, questions.Count);
-            questions[i] = questions[randomIndex];
-            questions[randomIndex] = temp;
+            Debug.Log(q.ToString());
         }
-        geographyQuestionDisplay.text = questions[0];
+
+        for(int i = 0; i < 4; i++)
+        {
+            player1.Buttons[i].SetSpriteImage(amountOfFlags[i]);
+            player2.Buttons[i].SetCapitalName(capitalName[i]);
+        }
+
+        geographyQuestionDisplay.text = duplicateQuestion[questionNumber];
     }
 
     void Update()
@@ -76,50 +94,76 @@ public class MatchQuestions : MonoBehaviour
 
     private void MatchAnswer()
     {
-        if (player1.ChosenAnswer && player2.ChosenAnswer == null)
+        if (!player1.HasAnswered || !player2.HasAnswered)
         {
             return;
         }
 
         gameTimer.Pause();
 
+        CheckAnswers();
+
         //if (questions[0] == geographyQuestionDisplay.text)
-        /* for(int a = 0; a < questions.Count; a++)
+
+        /* for(int a = 0; a < duplicateQuestion.Count; a++)
         {
-            if(compareQuestions[a] == questions[a])
+            for(int b = 0; b < questions.Count; b++)
             {
-                
+                if(duplicateQuestion[a] == questions[b])
+                {
+                    Debug.Log(questions[b] + " questions " + b + " & " + duplicateQuestion[a] + " dup quest " + a );
+
+                    if(player1.ChosenAnswer.Image.sprite.name == player1.Buttons[a].Image.name && player2.ChosenAnswer.Text.text == player2.Buttons.ToString())
+                    {
+                        CorrectAnswer();
+                    }
+
+                }
             }
         } */
 
-        if("Which flags and capital is United Kingdom?" == geographyQuestionDisplay.text)
+        /* for(int a = 0; a < duplicateQuestion.Count; a++)
+        {
+            if(duplicateQuestion[a] == geographyQuestionDisplay.text)
+            {
+                Debug.Log(duplicateQuestion[a] + " display " + a );
+                    
+            }
+        } */
+
+        /* if("Which flags and capital is United Kingdom?" == geographyQuestionDisplay.text)
         {
 
-            if (player1.ButtonNumber == 1 && player2.ButtonNumber == 0)
+            if (player1.ChosenAnswer.Image.sprite.name == "GB-ENG" && player2.ChosenAnswer.Text.text == "London") //correct
+            //if (player1.ButtonNumber == 0 && player2.ButtonNumber == 0) //correct
+            //if (player1.ButtonNumber == 1 && player2.ButtonNumber == 0)
             //if (player1.ChosenAnswer.ToString() == "Button1 (AnswerButton)"  && player2.ChosenAnswer.ToString() == "Button0 (AnswerButton)")
             {
+                //Debug.Log(player1.ChosenAnswer.Image.sprite.name);
+                //Debug.Log(player2.ChosenAnswer.Text.text);
                 Debug.Log("UK");
                 CorrectAnswer();
             }
             else
             {
-                Debug.Log("Wrong");
                 WrongAnswer();
             }
         }
         //else if (questions[1] == geographyQuestionDisplay.text)
         else if("Which flags and capital is Sweden?" == geographyQuestionDisplay.text)
         {
-
-            if (player1.ButtonNumber == 2 && player2.ButtonNumber == 1)
+            if (player1.ChosenAnswer.Image.sprite.name == "SE" && player2.ChosenAnswer.Text.text == "Stockholm") //correct
+            //if (player1.ButtonNumber == 1 && player2.ButtonNumber == 1) //correct
+            //if (player1.ButtonNumber == 0 && player2.ButtonNumber == 1)
             //if (player1.ChosenAnswer.ToString() == "Button2 (AnswerButton)"  && player2.ChosenAnswer.ToString() == "Button1 (AnswerButton)")
             {
+                //Debug.Log(player1.ChosenAnswer.Image.sprite.name);
+                //Debug.Log(player2.ChosenAnswer.Text.text);
                 Debug.Log("Sweden");
                 CorrectAnswer();
             }
             else
             {
-                Debug.Log("Wrong");
                 WrongAnswer();
             }
         }
@@ -127,34 +171,39 @@ public class MatchQuestions : MonoBehaviour
         else if("Which flags and capital is Netherland?" == geographyQuestionDisplay.text)
         {
 
-            if (player1.ButtonNumber == 0 && player2.ButtonNumber == 2)
+            if (player1.ChosenAnswer.Image.sprite.name == "NL" && player2.ChosenAnswer.Text.text == "Amsterdam") //correct
+            //if (player1.ButtonNumber == 2 && player2.ButtonNumber == 2) //correct
+            //if (player1.ButtonNumber == 3 && player2.ButtonNumber == 2)
             //if (player1.ChosenAnswer.ToString() == "Button0 (AnswerButton)"  && player2.ChosenAnswer.ToString() == "Button2 (AnswerButton)")
             {
+                //Debug.Log(player1.ChosenAnswer.Image.sprite.name);
+                //Debug.Log(player2.ChosenAnswer.Text.text);
                 Debug.Log("NL");
                 CorrectAnswer();
             }
             else
             {
-                Debug.Log("Wrong");
                 WrongAnswer();
             }
         }
         //else if (questions[3] == geographyQuestionDisplay.text)
         else if("Which flags and capital is Spain?" == geographyQuestionDisplay.text)
         {
-
-            if (player1.ButtonNumber == 3 && player2.ButtonNumber == 3)
+            if (player1.ChosenAnswer.Image.sprite.name == "ES" && player2.ChosenAnswer.Text.text == "Madrid") //correct
+            //if (player1.ButtonNumber == 3 && player2.ButtonNumber == 3) //correct
+            //if (player1.ButtonNumber == 2 && player2.ButtonNumber == 3)
             //if (player1.ChosenAnswer.ToString() == "Button3 (AnswerButton)"  && player2.ChosenAnswer.ToString() == "Button3 (AnswerButton)")
             {
+                //Debug.Log(player1.ChosenAnswer.Image.sprite.name);
+                //Debug.Log(player2.ChosenAnswer.Text.text);
                 Debug.Log("Spain");
                 CorrectAnswer();
             }
             else
             {
-                Debug.Log("Wrong");
                 WrongAnswer();
             }
-        }
+        } */
 
         StartCoroutine(ResetInterval());
     }
@@ -164,6 +213,58 @@ public class MatchQuestions : MonoBehaviour
         yield return new WaitForSeconds(newEquationInterval);
         NextQuestion();
         gameTimer.Resume();
+    }
+
+    private void CheckAnswers()
+    {
+        for(int i = 0; i < questions.Count; i++)
+        {
+            if(geographyQuestionDisplay.text == questions[i])
+            {
+                
+                int a = duplicateQuestion.IndexOf(geographyQuestionDisplay.text);
+                Debug.Log(a);
+                //Debug.Log(player1.Buttons[i].Image.sprite.name + " player1 " + player1.ChosenAnswer.Image.sprite.name);
+                //Debug.Log(player2.Buttons[i].Text.text + " player2 " + player2.ChosenAnswer.Text.text);
+                Debug.Log(capitalName[a].ToString() + " player2 " + player2.ChosenAnswer.Text.text);
+
+                /* Debug.Log(player1.Buttons[i].Image.sprite.name == player1.ChosenAnswer.Image.sprite.name);
+                Debug.Log(player2.ChosenAnswer.Text.text == player2.Buttons[i].Text.text); */
+
+                if(player1.Buttons[i].Image.sprite.name == player1.ChosenAnswer.Image.sprite.name && player2.ChosenAnswer.Text.text == player2.Buttons[i].Text.text)
+                {
+                    //Debug.Log("works");
+                    CorrectAnswer();
+                    return;
+                }
+            }
+        }
+        WrongAnswer();
+    }
+
+    private void RandomizeList(List<string> countries, List<Sprite> flags)
+    {
+        if(countries != null)
+        {
+            for (int i = 0; i < countries.Count; i++) 
+            {
+                string temp = countries[i];
+                int randomIndex = Random.Range(i, countries.Count);
+                countries[i] = countries[randomIndex];
+                countries[randomIndex] = temp;
+            }
+        }
+
+        if(flags != null)
+        {
+            for (int i = 0; i < flags.Count; i++) 
+            {
+                Sprite temp = flags[i];
+                int randomIndex = Random.Range(i, flags.Count);
+                flags[i] = flags[randomIndex];
+                flags[randomIndex] = temp;
+            }
+        }
     }
 
     private void NextQuestion()
@@ -176,7 +277,7 @@ public class MatchQuestions : MonoBehaviour
         player1.ResetPlayer();
         player2.ResetPlayer();
         displayImage.color = Color.white;
-        geographyQuestionDisplay.text = questions[questionNumber];
+        geographyQuestionDisplay.text = duplicateQuestion[questionNumber];
     }
 
     private void CorrectAnswer()
