@@ -13,9 +13,6 @@ public class GeographyQuestionGenerator : MonoBehaviour
     private void Start()
     {
         LoadJson();
-
-        GeographyQuestion question = GenerateQuestion(Region.Europe);
-        Sprite map = question.countryQuestion.GetMap();
     }
 
     private void LoadJson()
