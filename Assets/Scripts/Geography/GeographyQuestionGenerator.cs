@@ -13,6 +13,11 @@ public class GeographyQuestionGenerator : MonoBehaviour
     private void Start()
     {
         LoadJson();
+
+        for (int i = 0; i < 100; i++)
+        {
+            GeographyQuestion q = GenerateQuestion(Region.Any, i);
+        }
     }
 
     private void LoadJson()
@@ -20,15 +25,15 @@ public class GeographyQuestionGenerator : MonoBehaviour
         countries = JsonConvert.DeserializeObject<List<Country>>(jsonFile.text);
     }
 
-    public GeographyQuestion GenerateQuestion(Region region)
+    public GeographyQuestion GenerateQuestion(Region region, int maxDifficulty = 100)
     {
         if (region == Region.Any)
         {
-            return new GeographyQuestion(countries);
+            return new GeographyQuestion(countries, maxDifficulty);
         }
         else
         {
-            return new GeographyQuestion(countries.Where(x => x.region == region.ToString()).ToList());
+            return new GeographyQuestion(countries.Where(x => x.region == region.ToString()).ToList(), maxDifficulty);
         }
     }
 }
