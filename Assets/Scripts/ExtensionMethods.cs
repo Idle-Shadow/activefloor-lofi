@@ -23,7 +23,7 @@ namespace ExtensionMethods
             List<T> retList = new();
             for (int i = amount; i > 0; i--)
             {
-                retList.Add(GetRandomElement(list));
+                retList.Add(list.GetRandomElementExcluding(retList));
             }
 
             return retList;
