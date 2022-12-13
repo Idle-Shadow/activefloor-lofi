@@ -28,6 +28,10 @@ public class MatchQuestions : MonoBehaviour
     private int score = 0;
     private int questionNumber = 0;
 
+    //[SerializeField] GeographyQuestionGenerator questionGenerator;
+
+    //private GeographyQuestion quiz;
+
     //public delegate void MatchEvents();
     //public static event MatchEvents pointScored;
 
@@ -73,6 +77,9 @@ public class MatchQuestions : MonoBehaviour
         }
 
         geographyQuestionDisplay.text = duplicateQuestion[questionNumber];
+        //quiz = questionGenerator.GenerateQuestion(Region.Europe);
+        //geographyQuestionDisplay.text = quiz.countryQuestion.name;
+        //Debug.Log()
     }
 
     void Update()
@@ -133,7 +140,6 @@ public class MatchQuestions : MonoBehaviour
 
         /* if("Which flags and capital is United Kingdom?" == geographyQuestionDisplay.text)
         {
-
             if (player1.ChosenAnswer.Image.sprite.name == "GB-ENG" && player2.ChosenAnswer.Text.text == "London") //correct
             //if (player1.ButtonNumber == 0 && player2.ButtonNumber == 0) //correct
             //if (player1.ButtonNumber == 1 && player2.ButtonNumber == 0)
@@ -170,7 +176,6 @@ public class MatchQuestions : MonoBehaviour
         //else if (questions[2] == geographyQuestionDisplay.text)
         else if("Which flags and capital is Netherland?" == geographyQuestionDisplay.text)
         {
-
             if (player1.ChosenAnswer.Image.sprite.name == "NL" && player2.ChosenAnswer.Text.text == "Amsterdam") //correct
             //if (player1.ButtonNumber == 2 && player2.ButtonNumber == 2) //correct
             //if (player1.ButtonNumber == 3 && player2.ButtonNumber == 2)
@@ -221,7 +226,6 @@ public class MatchQuestions : MonoBehaviour
         {
             if(geographyQuestionDisplay.text == questions[i])
             {
-                
                 int a = duplicateQuestion.IndexOf(geographyQuestionDisplay.text);
                 Debug.Log(a);
                 //Debug.Log(player1.Buttons[i].Image.sprite.name + " player1 " + player1.ChosenAnswer.Image.sprite.name);
@@ -241,6 +245,11 @@ public class MatchQuestions : MonoBehaviour
         }
         WrongAnswer();
     }
+
+    /* private void CheckQuestion()
+    {
+        
+    } */
 
     private void RandomizeList(List<string> countries, List<Sprite> flags)
     {
