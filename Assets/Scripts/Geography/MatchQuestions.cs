@@ -35,9 +35,6 @@ public class MatchQuestions : MonoBehaviour
 
     private GeographyQuestion quiz;
 
-    //public delegate void MatchEvents();
-    //public static event MatchEvents pointScored;
-
     void Start()
     {
         region = RegionPicker.chosenRegion;
@@ -62,8 +59,9 @@ public class MatchQuestions : MonoBehaviour
                 questionText.text = quiz.countryQuestion.capital;
                 break;
             case GeographyQuestion.QuestionType.flag:
-                //TODO: Display SVG of flag in question
-                Debug.Log("TODO: Display SVG of flag");
+                questionText.gameObject.SetActive(false);
+                questionImage.gameObject.SetActive(true);
+                questionImage.sprite = quiz.countryQuestion.GetFlag();
                 break;
             case GeographyQuestion.QuestionType.map:
                 questionText.gameObject.SetActive(false);
@@ -99,10 +97,14 @@ public class MatchQuestions : MonoBehaviour
                 break;
             case GeographyQuestion.AnswerType.flag:
                 {
-                    List<string> answers = new();
-                    foreach (Country c in quiz.countryAnswersP1) answers.Add(c.flag);
-                    answers.Add(quiz.countryQuestion.flag);
-                    LoadAnswersSVG(answers);
+                    List<(Sprite, string)> answers = new();
+                    foreach (Country c in quiz.countryAnswersP1)
+                    {
+                        answers.Add((c.GetFlag(), c.code));
+                    }
+
+                    answers.Add((quiz.countryQuestion.GetFlag(), quiz.countryQuestion.code));
+                    LoadAnswersSprite(answers, player1);
                 }
                 break;
             default:
@@ -131,10 +133,14 @@ public class MatchQuestions : MonoBehaviour
                 break;
             case GeographyQuestion.AnswerType.flag:
                 {
-                    List<string> answers = new();
-                    foreach (Country c in quiz.countryAnswersP2) answers.Add(c.flag);
-                    answers.Add(quiz.countryQuestion.flag);
-                    LoadAnswersSVG(answers);
+                    List<(Sprite, string)> answers = new();
+                    foreach (Country c in quiz.countryAnswersP2) 
+                    {
+                        answers.Add((c.GetFlag(), c.code)); 
+                    }
+
+                    answers.Add((quiz.countryQuestion.GetFlag(), quiz.countryQuestion.code));
+                    LoadAnswersSprite(answers, player2);
                 }
                 break;
             default:
@@ -153,10 +159,14 @@ public class MatchQuestions : MonoBehaviour
         }
     }
 
-    private void LoadAnswersSVG(List<string> answers)
+    private void LoadAnswersSprite(List<(Sprite img, string name)> answers, Player player)
     {
-        //TODO: Display SVG of flag in answer
-        Debug.LogError("SVG loading not implemented yet.");
+        answers = answers.Shuffle();
+
+        for (int i = 0; i < answers.Count; i++)
+        {
+            player.Buttons[i].SetSpriteImage(answers[i].img, answers[i].name);
+        }
     }
 
     void Update()
@@ -220,8 +230,7 @@ public class MatchQuestions : MonoBehaviour
                 P1correct = player1.ChosenAnswer.Text.text == quiz.countryQuestion.capital;
                 break;
             case GeographyQuestion.AnswerType.flag:
-                /*if (player1.ChosenAnswer.Text.text == quiz.countryQuestion.name) { CorrectAnswer(); }
-                else { WrongAnswer(); }*/
+                P1correct = player1.ChosenAnswer.Image.gameObject.name == quiz.countryQuestion.code;
                 break;
             default:
                 break;
@@ -236,8 +245,7 @@ public class MatchQuestions : MonoBehaviour
                 P2correct = player2.ChosenAnswer.Text.text == quiz.countryQuestion.capital;
                 break;
             case GeographyQuestion.AnswerType.flag:
-                /*if (player2.ChosenAnswer.Text.text == quiz.countryQuestion.name) { CorrectAnswer(); }
-                else { WrongAnswer(); }*/
+                P2correct = player2.ChosenAnswer.Image.gameObject.name == quiz.countryQuestion.code;
                 break;
             default:
                 break;

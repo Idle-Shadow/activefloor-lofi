@@ -48,9 +48,10 @@ public class AnswerButton : MonoBehaviour
         ChangeColor(Color.white);
     }
 
-    public void SetSpriteImage(Sprite sprite)
+    public void SetSpriteImage(Sprite sprite, string name)
     {
         Image.sprite = sprite;
+        Image.name = name;
     }
 
     public void SetCapitalName(string capital)

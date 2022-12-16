@@ -16,4 +16,9 @@ public class Country
     {
         return Resources.Load<Sprite>($"Geography/Maps/{code}");
     }
+
+    public Sprite GetFlag()
+    {
+        return Resources.Load<Sprite>($"Geography/Flags/{code}");
+    }
 }
