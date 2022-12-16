@@ -13,11 +13,6 @@ public class GeographyQuestionGenerator : MonoBehaviour
     private void Start()
     {
         LoadJson();
-
-        for (int i = 0; i < 100; i++)
-        {
-            GeographyQuestion q = GenerateQuestion(Region.Any, i);
-        }
     }
 
     private void LoadJson()
