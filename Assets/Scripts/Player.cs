@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public bool HasAnswered = false;
     public AnswerButton ChosenAnswer;
 
+    public int ButtonNumber { get; private set;} = 0;
+
     public delegate void PlayerEvents();
     public static event PlayerEvents PlayerHasAnswered;
 
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
             {
                 Buttons[i].Press();
                 ChosenAnswer = Buttons[i];
+                ChosenAnswer.ButtonNumber = i;
+                ButtonNumber = i;
             }
             else Buttons[i].PressReset();
         }
