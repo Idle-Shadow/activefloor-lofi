@@ -16,7 +16,7 @@ public class SfxManager : MonoBehaviour
     public void PlaySoundEffect(string title)
     {
         AudioClipWithTitle curClip = audioClips.Find(x => x.title == title);
-        if (curClip != null) GetComponent<AudioSource>().PlayOneShot(curClip.clip);
-        else Debug.LogError($"Sound clip with title \"{title}\" not found.");
+        if (curClip != null && curClip.clip != null) GetComponent<AudioSource>().PlayOneShot(curClip.clip);
+        else Debug.LogError($"Sound clip with title \"{title}\" not valid.");
     }
 }
