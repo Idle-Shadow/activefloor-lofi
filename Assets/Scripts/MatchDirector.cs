@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 
 public class MatchDirector : MonoBehaviour
 {
+    public float NewEquationInterval = 3;
     public float SecondsAddOnSucces = 10;
     public float SecondsSubtractOnFail = 10;
     public int Score { get; private set; } = 0;
@@ -136,11 +138,19 @@ public class MatchDirector : MonoBehaviour
 
         if (check) AnswerCorrect();
         else AnswerWrong();
+
+        StartCoroutine(ResetInterval());
+    }
+
+    IEnumerator ResetInterval()
+    {
+        yield return new WaitForSeconds(NewEquationInterval);
+        NextEquation();
     }
 
     void EndGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void AnswerCorrect()
