@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TestTextureLava
+  m_Name: Lava-3
   m_Shader: {fileID: 4800000, guid: bec21333d7f8cf84cb75cab616acf589, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -36,10 +36,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Distort:
-        m_Texture: {fileID: 2800000, guid: 97e8e0efd57e9d843bb986223a321e96, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -47,9 +43,9 @@ Material:
     - _LavaTex:
         m_Texture: {fileID: 2800000, guid: 66a5148ae2514f34596ad78fab889b59, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 1.7729043, y: 0}
+        m_Offset: {x: 2.139168, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 97e8e0efd57e9d843bb986223a321e96, type: 3}
+        m_Texture: {fileID: 2800000, guid: 88419c8fa216c3e4e83ce7cd9b3d615c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -69,8 +65,6 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistortX: 1
-    - _DistortY: 0
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
