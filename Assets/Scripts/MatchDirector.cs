@@ -67,7 +67,9 @@ public class MatchDirector : MonoBehaviour
             _player2HasResult ? _currentEquation.Item2 : "<b><color=red>P2</color></b>",
             _player2HasResult ? "<b><color=red>P2</color></b>" : _currentEquation.Item3);
         DebugText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        
         DisplayImage.color = Color.white;
+
 
         Player1.ResetPlayer();
         Player2.ResetPlayer();
