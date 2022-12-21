@@ -606,7 +606,7 @@ PrefabInstance:
       objectReference: {fileID: 1938835033}
     - target: {fileID: 230455566330678251, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 230455566369912453, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -706,7 +706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 230455566808115125, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 230455566899894640, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_TargetGraphic

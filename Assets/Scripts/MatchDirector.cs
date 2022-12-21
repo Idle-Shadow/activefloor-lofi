@@ -141,6 +141,8 @@ public class MatchDirector : MonoBehaviour
         if (check) AnswerCorrect();
         else AnswerWrong();
 
+        //Pause timer
+        GameTimer.Pause();
         StartCoroutine(ResetInterval());
     }
 
@@ -148,6 +150,9 @@ public class MatchDirector : MonoBehaviour
     {
         yield return new WaitForSeconds(NewEquationInterval);
         NextEquation();
+
+        //Resume timer
+        GameTimer.Resume();
     }
 
     void EndGame()
