@@ -1,13 +1,13 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MatchDirector : MonoBehaviour
 {
-    public float SecondsAddOnSucces = 10;
-    public float SecondsSubtractOnFail = 10;
     public int Score { get; private set; } = 0;
 
     public Player Player1;
@@ -21,12 +21,13 @@ public class MatchDirector : MonoBehaviour
     public TextMeshProUGUI TimerText;
     public TextMeshProUGUI ScoreText;
 
-    public AudioSource UIAudioSource;
-    public AudioClip ClipCorrect;
-    public AudioClip ClipWrong;
-
     public delegate void MatchEvents();
     public static event MatchEvents PointScored;
+
+    [Header("Events")]
+    public UnityEvent answerCorrectEvent;
+    public UnityEvent answerIncorrectEvent;
+    public UnityEvent gameOverEvent;
 
     (int, int, int) _currentEquation;
     bool _player2HasResult;
@@ -140,14 +141,20 @@ public class MatchDirector : MonoBehaviour
 
     void EndGame()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(GameOver());   
+    }
+
+    IEnumerator GameOver()
+    {
+        gameOverEvent.Invoke();
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void AnswerCorrect()
     {
         DisplayImage.color = Color.green;
-        UIAudioSource.PlayOneShot(ClipCorrect);
-        GameTimer.AddTime(SecondsAddOnSucces);
+        answerCorrectEvent.Invoke();
         Score++;
         ScoreText.text = Score.ToString();
         if (PointScored != null) PointScored.Invoke();
@@ -156,7 +163,6 @@ public class MatchDirector : MonoBehaviour
     void AnswerWrong()
     {
         DisplayImage.color = Color.red;
-        UIAudioSource.PlayOneShot(ClipWrong);
-        GameTimer.SubtractTime(SecondsSubtractOnFail);
+        answerIncorrectEvent.Invoke();
     }
 }
