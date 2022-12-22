@@ -234,17 +234,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &934492620 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 230455564891547199, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-  m_PrefabInstance: {fileID: 230455565773201395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1013575993 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 230455565028273866, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
@@ -422,6 +411,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db354abed4ef6f845be4e17ad0367be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2126850507 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2332783155084382319, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
+  m_PrefabInstance: {fileID: 230455565773201395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &230455565773201395
@@ -767,6 +767,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 289041599671229535, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846917925104504833, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1815486903}
+    - target: {fileID: 4846917925104504833, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SubtractTime
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
 --- !u!224 &230455565773201396 stripped
@@ -887,7 +899,7 @@ PrefabInstance:
     - target: {fileID: 5461185535113426916, guid: ccb0396d0e751924b994383686604965, type: 3}
       propertyPath: DisplayImage
       value: 
-      objectReference: {fileID: 934492620}
+      objectReference: {fileID: 2126850507}
     - target: {fileID: 5461185535113426916, guid: ccb0396d0e751924b994383686604965, type: 3}
       propertyPath: EquationText
       value: 
