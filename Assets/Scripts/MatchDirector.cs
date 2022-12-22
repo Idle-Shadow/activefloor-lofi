@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class MatchDirector : MonoBehaviour
 {
+    public float NewEquationInterval = 3;
     public int Score { get; private set; } = 0;
 
     public Player Player1;
