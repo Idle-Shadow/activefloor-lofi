@@ -68,7 +68,9 @@ public class MatchDirector : MonoBehaviour
             _player2HasResult ? _currentEquation.Item2 : "<b><color=red>P2</color></b>",
             _player2HasResult ? "<b><color=red>P2</color></b>" : _currentEquation.Item3);
         DebugText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
+        
         DisplayImage.color = Color.white;
+
 
         Player1.ResetPlayer();
         Player2.ResetPlayer();
@@ -137,6 +139,19 @@ public class MatchDirector : MonoBehaviour
 
         if (check) AnswerCorrect();
         else AnswerWrong();
+
+        //Pause timer
+        GameTimer.Pause();
+        StartCoroutine(ResetInterval());
+    }
+
+    IEnumerator ResetInterval()
+    {
+        yield return new WaitForSeconds(NewEquationInterval);
+        NextEquation();
+
+        //Resume timer
+        GameTimer.Resume();
     }
 
     void EndGame()
