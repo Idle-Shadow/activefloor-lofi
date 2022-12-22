@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lava-1
+  m_Name: Lava3
   m_Shader: {fileID: 4800000, guid: bec21333d7f8cf84cb75cab616acf589, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -43,7 +43,7 @@ Material:
     - _LavaTex:
         m_Texture: {fileID: 2800000, guid: 66a5148ae2514f34596ad78fab889b59, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 1.2014458, y: 0}
+        m_Offset: {x: 0.48004648, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 30dce5495a8c9f34c925033ff11af3af, type: 3}
         m_Scale: {x: 1, y: 1}
