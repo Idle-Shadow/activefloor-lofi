@@ -1,17 +1,25 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
+using UnityEngine.EventSystems;
 
-public class AnswerButton : MonoBehaviour
+public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public bool IsPressed = false;
+    public bool IsPressed { get; private set; } = false;
     public int Number { get; private set; } = 0;
     public TextMeshProUGUI Text;
     public Image Image;
     public Color PressedColor;
-    public int ButtonNumber {get; set;} = 0;
     public Button button;
+    public delegate void AnswerButtonEvents();
+    public static event AnswerButtonEvents ButtonPressed;
+
+    Player _player;
+
+    void Start()
+    {
+        _player = GetComponentInParent<Player>();
+    }
 
     public void ChangeNumber(int number)
     {
@@ -29,6 +37,8 @@ public class AnswerButton : MonoBehaviour
     {
         IsPressed = true;
         ChangeColor(PressedColor);
+        _player.ButtonPressed(this);
+        if (ButtonPressed != null) ButtonPressed.Invoke();
     }
 
     public void ResetButton()
@@ -46,6 +56,7 @@ public class AnswerButton : MonoBehaviour
     {
         IsPressed = false;
         ChangeColor(Color.white);
+        _player.ButtonReleased();
     }
 
     public void SetSpriteImage(Sprite sprite, string name)
@@ -67,5 +78,15 @@ public class AnswerButton : MonoBehaviour
     public void SetCountryFlag(string svg)
     {
         Debug.Log(svg);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (button.enabled) Press();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (button.enabled) PressReset();
     }
 }

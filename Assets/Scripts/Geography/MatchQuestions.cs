@@ -176,19 +176,19 @@ public class MatchQuestions : MonoBehaviour
 
     void OnEnable()
     {
-        Player.PlayerHasAnswered += MatchAnswer;
+        AnswerButton.ButtonPressed += MatchAnswer;
         Timer.TimerExpired += EndGame;
     }
 
     void OnDisable()
     {
-        Player.PlayerHasAnswered -= MatchAnswer;
+        AnswerButton.ButtonPressed -= MatchAnswer;
         Timer.TimerExpired -= EndGame;
     }
 
     private void MatchAnswer()
     {
-        if (!player1.HasAnswered || !player2.HasAnswered)
+        if (player1.ChosenAnswer == null || player2.ChosenAnswer == null)
         {
             return;
         }
@@ -271,10 +271,6 @@ public class MatchQuestions : MonoBehaviour
             b.SetActive(true);
         }
 
-        player1.ChosenAnswer.PressReset();
-        player2.ChosenAnswer.PressReset();
-        player1.ChosenAnswer = null;
-        player2.ChosenAnswer = null;
         player1.ResetPlayer();
         player2.ResetPlayer();
         statusImage.color = Color.white;

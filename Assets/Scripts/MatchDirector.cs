@@ -40,13 +40,13 @@ public class MatchDirector : MonoBehaviour
 
     void OnEnable()
     {
-        Player.PlayerHasAnswered += CheckAnswers;
+        AnswerButton.ButtonPressed += CheckAnswers;
         Timer.TimerExpired += EndGame;
     }
 
     void OnDisable()
     {
-        Player.PlayerHasAnswered -= CheckAnswers;
+        AnswerButton.ButtonPressed -= CheckAnswers;
         Timer.TimerExpired -= EndGame;
     }
 
@@ -112,7 +112,7 @@ public class MatchDirector : MonoBehaviour
 
     void CheckAnswers()
     {
-        if (!Player1.HasAnswered || !Player2.HasAnswered) return;
+        if (Player1.ChosenAnswer == null || Player2.ChosenAnswer == null) return;
 
         Player1.EnableButtons(false);
         Player2.EnableButtons(false);
