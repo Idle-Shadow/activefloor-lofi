@@ -431,22 +431,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 230455565014334294, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a395aea0f9e56de4296d09052506d741, type: 2}
-    - target: {fileID: 230455565014334294, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -2054830440500504623, guid: a395aea0f9e56de4296d09052506d741, type: 2}
-    - target: {fileID: 230455565014334295, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 230455565014334295, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -20
-      objectReference: {fileID: 0}
     - target: {fileID: 230455565325551501, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -539,22 +523,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 230455565822513973, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -150
-      objectReference: {fileID: 0}
-    - target: {fileID: 230455565822513973, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 230455565822513979, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a395aea0f9e56de4296d09052506d741, type: 2}
-    - target: {fileID: 230455565822513979, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -2054830440500504623, guid: a395aea0f9e56de4296d09052506d741, type: 2}
     - target: {fileID: 230455566039949371, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
