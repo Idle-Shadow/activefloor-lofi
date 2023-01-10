@@ -9,6 +9,7 @@ public class AnswerButton : MonoBehaviour
     public int Number { get; private set; } = 0;
     public TextMeshProUGUI Text;
     public Image Image;
+    public Sprite DefaultImage;
     public Color PressedColor;
     public int ButtonNumber {get; set;} = 0;
     public Button button;
@@ -34,7 +35,8 @@ public class AnswerButton : MonoBehaviour
     public void ResetButton()
     {
         Text.text = "";
-        Image.sprite = null;
+        Image.sprite = DefaultImage;
+        Image.color = Color.white;
     }
 
     public void ChangeColor(Color color)
