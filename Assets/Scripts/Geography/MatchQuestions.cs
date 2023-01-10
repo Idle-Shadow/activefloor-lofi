@@ -193,14 +193,8 @@ public class MatchQuestions : MonoBehaviour
             return;
         }
 
-        foreach (AnswerButton b in player1.Buttons)
-        {
-            b.SetActive(false);
-        }
-        foreach (AnswerButton b in player2.Buttons)
-        {
-            b.SetActive(false);
-        }
+        player1.EnableButtons(false);
+        player2.EnableButtons(false);
 
         gameTimer.Pause();
 
