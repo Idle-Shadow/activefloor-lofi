@@ -114,6 +114,9 @@ public class MatchDirector : MonoBehaviour
     {
         if (!Player1.HasAnswered || !Player2.HasAnswered) return;
 
+        Player1.EnableButtons(false);
+        Player2.EnableButtons(false);
+
         EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         int[] equationElements = new int[3] {
             Player1.ChosenAnswer.Number,

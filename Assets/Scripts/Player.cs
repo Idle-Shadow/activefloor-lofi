@@ -32,7 +32,16 @@ public class Player : MonoBehaviour
 
     public void ResetPlayer()
     {
-        foreach (AnswerButton button in Buttons) button.IsPressed = false;
+        foreach (AnswerButton button in Buttons)
+        {
+            button.IsPressed = false;
+            button.SetActive(true);
+        }
         HasAnswered = false;
+    }
+
+    public void EnableButtons (bool active)
+    {
+        foreach (AnswerButton button in Buttons) button.SetActive(active);
     }
 }
