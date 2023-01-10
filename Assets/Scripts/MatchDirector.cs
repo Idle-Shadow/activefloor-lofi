@@ -22,6 +22,9 @@ public class MatchDirector : MonoBehaviour
     public TextMeshProUGUI TimerText;
     public TextMeshProUGUI ScoreText;
 
+    [SerializeField] Color CorrectAnswerColor;
+    [SerializeField] Color IncorrectAnswerColor;
+
     public delegate void MatchEvents();
     public static event MatchEvents PointScored;
 
@@ -81,6 +84,7 @@ public class MatchDirector : MonoBehaviour
     {
         int amountButtons = player.Buttons.Length;
         int correctAnswerOn = UnityEngine.Random.Range(0, amountButtons);
+        player.ActualAnswer = correctAnswerOn;
 
         for (int i = 0; i < amountButtons; i++)
         {
@@ -141,6 +145,7 @@ public class MatchDirector : MonoBehaviour
                 break;
         }
 
+        HighlightCorrectAnswers(check);
         if (check) AnswerCorrect();
         else AnswerWrong();
 
@@ -152,6 +157,10 @@ public class MatchDirector : MonoBehaviour
     IEnumerator ResetInterval()
     {
         yield return new WaitForSeconds(NewEquationInterval);
+        for (int i = 0; i < Player1.Buttons.Length; i++)
+            Player1.Buttons[i].Image.color = Color.white;
+        for (int i = 0; i < Player2.Buttons.Length; i++)
+            Player2.Buttons[i].Image.color = Color.white;
         NextEquation();
 
         //Resume timer
@@ -170,9 +179,20 @@ public class MatchDirector : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void HighlightCorrectAnswers(bool check)
+    {
+        if (!check)
+            Player1.Buttons[Player1.ChosenAnswer.ButtonNumber].button.image.color = IncorrectAnswerColor;
+        Player1.Buttons[Player1.ActualAnswer].button.image.color = CorrectAnswerColor;
+
+        if (!check)
+            Player2.Buttons[Player2.ChosenAnswer.ButtonNumber].button.image.color = IncorrectAnswerColor;
+        Player2.Buttons[Player2.ActualAnswer].button.image.color = CorrectAnswerColor;
+    }
+
     void AnswerCorrect()
     {
-        DisplayImage.color = Color.green;
+        //DisplayImage.color = Color.green;
         answerCorrectEvent.Invoke();
         Score++;
         ScoreText.text = Score.ToString();
@@ -181,7 +201,7 @@ public class MatchDirector : MonoBehaviour
 
     void AnswerWrong()
     {
-        DisplayImage.color = Color.red;
+        //DisplayImage.color = Color.red;
         answerIncorrectEvent.Invoke();
     }
 }
