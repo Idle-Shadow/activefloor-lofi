@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using ExtensionMethods;
+using System.Linq;
 
 public class MatchQuestions : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class MatchQuestions : MonoBehaviour
     [SerializeField] AudioClip clipCorrect;
     [SerializeField] AudioClip clipWrong;
     [SerializeField] Image statusImage;
+    [SerializeField] Color CorrectAnswerColor;
+    [SerializeField] Color IncorrectAnswerColor;
 
     private int score = 0;
 
@@ -210,41 +213,28 @@ public class MatchQuestions : MonoBehaviour
         gameTimer.Resume();
     }
 
+    public bool VerifyPlayer1Answer() => quiz.answerTypeP1 switch
+    {
+        GeographyQuestion.AnswerType.name => player1.ChosenAnswer.Text.text == quiz.countryQuestion.name,
+        GeographyQuestion.AnswerType.capital => player1.ChosenAnswer.Text.text == quiz.countryQuestion.capital,
+        GeographyQuestion.AnswerType.flag => player1.ChosenAnswer.Image.gameObject.name == quiz.countryQuestion.code,
+        _ => false
+    };
+
+    public bool VerifyPlayer2Answer() => quiz.answerTypeP2 switch
+    {
+        GeographyQuestion.AnswerType.name => player2.ChosenAnswer.Text.text == quiz.countryQuestion.name,
+        GeographyQuestion.AnswerType.capital => player2.ChosenAnswer.Text.text == quiz.countryQuestion.capital,
+        GeographyQuestion.AnswerType.flag => player2.ChosenAnswer.Image.gameObject.name == quiz.countryQuestion.code,
+        _ => false
+    };
+
     private void CheckAnswers()
     {
-        bool P1correct = false;
-        bool P2correct = false;
+        bool P1correct = VerifyPlayer1Answer();
+        bool P2correct = VerifyPlayer2Answer();
 
-        switch (quiz.answerTypeP1)
-        {
-            case GeographyQuestion.AnswerType.name:
-                P1correct = player1.ChosenAnswer.Text.text == quiz.countryQuestion.name;
-                break;
-            case GeographyQuestion.AnswerType.capital:
-                P1correct = player1.ChosenAnswer.Text.text == quiz.countryQuestion.capital;
-                break;
-            case GeographyQuestion.AnswerType.flag:
-                P1correct = player1.ChosenAnswer.Image.gameObject.name == quiz.countryQuestion.code;
-                break;
-            default:
-                break;
-        }
-
-        switch (quiz.answerTypeP2)
-        {
-            case GeographyQuestion.AnswerType.name:
-                P2correct = player2.ChosenAnswer.Text.text == quiz.countryQuestion.name;
-                break;
-            case GeographyQuestion.AnswerType.capital:
-                P2correct = player2.ChosenAnswer.Text.text == quiz.countryQuestion.capital;
-                break;
-            case GeographyQuestion.AnswerType.flag:
-                P2correct = player2.ChosenAnswer.Image.gameObject.name == quiz.countryQuestion.code;
-                break;
-            default:
-                break;
-        }
-
+        HighlightCorrectAnswers();
         if (P1correct && P2correct)
         {
             CorrectAnswer();
@@ -253,9 +243,36 @@ public class MatchQuestions : MonoBehaviour
         {
             WrongAnswer();
         }
-    } 
+    }
 
-    
+    public void HighlightCorrectAnswers()
+    {
+        if (!VerifyPlayer1Answer())
+            player1.ChosenAnswer.button.image.color = IncorrectAnswerColor;
+        Getplayer1AnswerButton().Image.color = CorrectAnswerColor;
+
+        if (!VerifyPlayer2Answer())
+            player2.ChosenAnswer.button.image.color = IncorrectAnswerColor;
+        Getplayer2AnswerButton().Image.color = CorrectAnswerColor;
+    }
+
+    public AnswerButton Getplayer1AnswerButton() => quiz.answerTypeP1 switch
+    {
+        GeographyQuestion.AnswerType.name => player1.Buttons.First(x => x.Text.text == quiz.countryQuestion.name),
+        GeographyQuestion.AnswerType.capital => player1.Buttons.First(x => x.Text.text == quiz.countryQuestion.capital),
+        GeographyQuestion.AnswerType.flag => player1.Buttons.First(x => x.Image.gameObject.name == quiz.countryQuestion.code),
+        _ => null
+    };
+
+    public AnswerButton Getplayer2AnswerButton() => quiz.answerTypeP2 switch
+    {
+        GeographyQuestion.AnswerType.name => player2.Buttons.First(x => x.Text.text == quiz.countryQuestion.name),
+        GeographyQuestion.AnswerType.capital => player2.Buttons.First(x => x.Text.text == quiz.countryQuestion.capital),
+        GeographyQuestion.AnswerType.flag => player2.Buttons.First(x => x.Image.gameObject.name == quiz.countryQuestion.code),
+        _ => null
+    };
+
+
     private void NextQuestion()
     {
         questionImage.sprite = null;
@@ -283,7 +300,7 @@ public class MatchQuestions : MonoBehaviour
 
     private void CorrectAnswer()
     {
-        statusImage.color = Color.green;
+        //statusImage.color = Color.green;
         uiAudioSource.PlayOneShot(clipCorrect);
         gameTimer.AddTime(secondsAddOnSucces);
         score++;
@@ -292,13 +309,13 @@ public class MatchQuestions : MonoBehaviour
 
     private void WrongAnswer()
     {
-        statusImage.color = Color.red;
+        //statusImage.color = Color.red;
         uiAudioSource.PlayOneShot(clipWrong);
         gameTimer.SubtractTime(secondsSubtractOnFail);
     }
 
     private void EndGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("MainMenu");
     }
 }

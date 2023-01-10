@@ -9,6 +9,7 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public int Number { get; private set; } = 0;
     public TextMeshProUGUI Text;
     public Image Image;
+    public Sprite DefaultImage;
     public Color PressedColor;
     public Button button;
     public delegate void AnswerButtonEvents();
@@ -44,7 +45,8 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void ResetButton()
     {
         Text.text = "";
-        Image.sprite = null;
+        Image.sprite = DefaultImage;
+        Image.color = Color.white;
     }
 
     public void ChangeColor(Color color)
