@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public AnswerButton[] Buttons;
+    public int ActualAnswer = 0;
     public bool HasAnswered = false;
     public AnswerButton ChosenAnswer;
 
