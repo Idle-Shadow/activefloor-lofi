@@ -182,11 +182,11 @@ public class MatchDirector : MonoBehaviour
     public void HighlightCorrectAnswers(bool check)
     {
         if (!check)
-            Player1.Buttons[Player1.ChosenAnswer.ButtonNumber].button.image.color = IncorrectAnswerColor;
+            Player1.ChosenAnswer.button.image.color = IncorrectAnswerColor;
         Player1.Buttons[Player1.ActualAnswer].button.image.color = CorrectAnswerColor;
 
         if (!check)
-            Player2.Buttons[Player2.ChosenAnswer.ButtonNumber].button.image.color = IncorrectAnswerColor;
+            Player2.ChosenAnswer.button.image.color = IncorrectAnswerColor;
         Player2.Buttons[Player2.ActualAnswer].button.image.color = CorrectAnswerColor;
     }
 

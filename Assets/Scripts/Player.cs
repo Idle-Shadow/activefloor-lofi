@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
     public AnswerButton[] Buttons;
     public int ActualAnswer = 0;
     public bool HasAnswered = false;
-    public AnswerButton ChosenAnswer;
+    public AnswerButton ChosenAnswer { get; private set; }
 
     public void ButtonPressed(AnswerButton answer)
     {
