@@ -44,13 +44,13 @@ public class MatchDirector : MonoBehaviour
 
     void OnEnable()
     {
-        Player.PlayerHasAnswered += CheckAnswers;
+        AnswerButton.ButtonPressed += CheckAnswers;
         Timer.TimerExpired += EndGame;
     }
 
     void OnDisable()
     {
-        Player.PlayerHasAnswered -= CheckAnswers;
+        AnswerButton.ButtonPressed -= CheckAnswers;
         Timer.TimerExpired -= EndGame;
     }
 
@@ -117,7 +117,10 @@ public class MatchDirector : MonoBehaviour
 
     void CheckAnswers()
     {
-        if (!Player1.HasAnswered || !Player2.HasAnswered) return;
+        if (Player1.ChosenAnswer == null || Player2.ChosenAnswer == null) return;
+
+        Player1.EnableButtons(false);
+        Player2.EnableButtons(false);
 
         EquationText.text = $"{_currentEquation.Item1} {EquationGenerator.CurrentModeSettings.OperatorMode.StringRepresentation} {_currentEquation.Item2} = {_currentEquation.Item3}";
         int[] equationElements = new int[3] {
@@ -187,11 +190,11 @@ public class MatchDirector : MonoBehaviour
     public void HighlightCorrectAnswers(bool check)
     {
         if (!check)
-            Player1.Buttons[Player1.ChosenAnswer.ButtonNumber].button.image.color = IncorrectAnswerColor;
+            Player1.ChosenAnswer.button.image.color = IncorrectAnswerColor;
         Player1.Buttons[Player1.ActualAnswer].button.image.color = CorrectAnswerColor;
 
         if (!check)
-            Player2.Buttons[Player2.ChosenAnswer.ButtonNumber].button.image.color = IncorrectAnswerColor;
+            Player2.ChosenAnswer.button.image.color = IncorrectAnswerColor;
         Player2.Buttons[Player2.ActualAnswer].button.image.color = CorrectAnswerColor;
     }
 
