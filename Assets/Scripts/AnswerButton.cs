@@ -17,7 +17,7 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     Player _player;
 
-    void Start()
+    void OnEnable()
     {
         _player = GetComponentInParent<Player>();
     }
@@ -89,6 +89,7 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (button.enabled) PressReset();
+        if (button.enabled && Application.platform == RuntimePlatform.Android)
+            PressReset();
     }
 }
