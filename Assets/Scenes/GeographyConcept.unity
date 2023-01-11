@@ -986,7 +986,6 @@ GameObject:
   - component: {fileID: 644595184}
   - component: {fileID: 644595183}
   - component: {fileID: 644595182}
-  - component: {fileID: 644595181}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -1015,18 +1014,6 @@ RectTransform:
   m_AnchoredPosition: {x: 150, y: -140}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &644595181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644595179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57072451a8bb929498c037399692bede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &644595182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,7 +1527,6 @@ GameObject:
   - component: {fileID: 891019479}
   - component: {fileID: 891019478}
   - component: {fileID: 891019477}
-  - component: {fileID: 891019476}
   m_Layer: 5
   m_Name: ModeButton
   m_TagString: Untagged
@@ -1569,18 +1555,6 @@ RectTransform:
   m_AnchoredPosition: {x: 150, y: -100}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &891019476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891019474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57072451a8bb929498c037399692bede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &891019477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5279,7 +5253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 716957113933633510}
   Image: {fileID: 3700779717514144244}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -5297,7 +5270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 716957112735651449}
   Image: {fileID: 3700779718725789803}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -5315,7 +5287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 5228949904367261037}
   Image: {fileID: 8155848757725284423}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -5333,7 +5304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 5228949903172424946}
   Image: {fileID: 8155848756533561816}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -5605,7 +5575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 4609717157618961652}
   Image: {fileID: 1996303132837722604}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -5623,7 +5592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 4609717156397878635}
   Image: {fileID: 1996303131619817587}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -5764,7 +5732,6 @@ MonoBehaviour:
   - {fileID: 3101394604474731208}
   ActualAnswer: 0
   HasAnswered: 0
-  ChosenAnswer: {fileID: 0}
 --- !u!114 &3660728777331863702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5784,7 +5751,6 @@ MonoBehaviour:
   - {fileID: 3101394603283041111}
   ActualAnswer: 0
   HasAnswered: 0
-  ChosenAnswer: {fileID: 0}
 --- !u!114 &3700779717514144244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6417,7 +6383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 2695175389741732590}
   Image: {fileID: 3175423783749364728}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
@@ -6435,7 +6400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7102e12610fd85a4d8fb70ad132e71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPressed: 0
   Text: {fileID: 2695175388788036465}
   Image: {fileID: 3175423782803040871}
   DefaultImage: {fileID: 21300000, guid: a08a7e5af78fa504f8c4fd745a71bfeb, type: 3}
