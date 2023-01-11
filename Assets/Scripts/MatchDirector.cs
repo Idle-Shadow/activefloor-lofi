@@ -38,6 +38,7 @@ public class MatchDirector : MonoBehaviour
 
     void Start()
     {
+        GameOverScreen.gameObject.SetActive(false);
         NextEquation();
     }
 
@@ -169,11 +170,18 @@ public class MatchDirector : MonoBehaviour
         StartCoroutine(GameOver());   
     }
 
+    [SerializeField] FinalScoreDisplayer GameOverScreen;
+
     IEnumerator GameOver()
     {
+        if (GameOverScreen == null)
+            SceneManager.LoadScene("MainMenu");
+        GameOverScreen.SetScore(Score);
+        GameOverScreen.gameObject.SetActive(true);
+
         gameOverEvent.Invoke();
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void HighlightCorrectAnswers(bool check)

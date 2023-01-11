@@ -40,6 +40,7 @@ public class MatchQuestions : MonoBehaviour
 
     void Start()
     {
+        GameOverScreen.gameObject.SetActive(false);
         region = RegionPicker.chosenRegion;
         LoadNewQuestion();
         LoadAnswers();
@@ -324,8 +325,16 @@ public class MatchQuestions : MonoBehaviour
         gameTimer.SubtractTime(secondsSubtractOnFail);
     }
 
+    [SerializeField] FinalScoreDisplayer GameOverScreen;
+    [SerializeField] AudioClip GameOverSound;
+
     private void EndGame()
     {
-        SceneManager.LoadScene("MainMenu");
+        if (GameOverScreen == null)
+            SceneManager.LoadScene("MainMenu");
+        GameOverScreen.SetScore(score);
+        GameOverScreen.gameObject.SetActive(true);
+        if (GameOverSound != null)
+            uiAudioSource.PlayOneShot(GameOverSound);
     }
 }
