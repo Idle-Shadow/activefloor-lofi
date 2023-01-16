@@ -26,7 +26,7 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         Number = number;
         Text.text = number.ToString();
-        PressReset();
+        PressResetAndRelease();
     }
 
     public void SetActive(bool active)
@@ -58,6 +58,11 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         IsPressed = false;
         ChangeColor(Color.white);
+    }
+
+    public void PressResetAndRelease()
+    {
+        PressReset();
         _player.ButtonReleased();
     }
 
@@ -90,6 +95,6 @@ public class AnswerButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerUp(PointerEventData eventData)
     {
         if (button.enabled && Application.platform == RuntimePlatform.Android)
-            PressReset();
+            PressResetAndRelease();
     }
 }

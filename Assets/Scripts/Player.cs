@@ -9,6 +9,11 @@ public class Player : MonoBehaviour
 
     public void ButtonPressed(AnswerButton answer)
     {
+        if (ChosenAnswer != null && Application.platform != RuntimePlatform.Android)
+        {
+            ChosenAnswer.PressReset();
+        }
+
         ChosenAnswer = answer;
     }
 
@@ -21,7 +26,7 @@ public class Player : MonoBehaviour
     {
         foreach (AnswerButton button in Buttons)
         {
-            button.PressReset();
+            button.PressResetAndRelease();
             button.SetActive(true);
         }
     }
