@@ -824,7 +824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 230455566808115125, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 230455566899894640, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -925,6 +925,14 @@ PrefabInstance:
     - target: {fileID: 3855526960480854309, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855526960480854309, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855526960480854309, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4340531023617351505, guid: 7e00b804a7507a14b96cb0f67ed68808, type: 3}
       propertyPath: m_fontAsset
