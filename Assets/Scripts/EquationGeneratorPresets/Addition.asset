@@ -15,6 +15,6 @@ MonoBehaviour:
   TargetModes:
   - OperatorMode: {fileID: 11400000, guid: 44931d623d47ac54a98d107f6b557a9c, type: 2}
     LowestNumber: 1
-    HighestNumber: 60
+    HighestNumber: 30
   IncreaseDifficultyWhenScored: 1
-  DifficultyIncrease: 0.1
+  DifficultyIncrease: 0.05

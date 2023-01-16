@@ -17,4 +17,4 @@ MonoBehaviour:
     LowestNumber: 1
     HighestNumber: 10
   IncreaseDifficultyWhenScored: 1
-  DifficultyIncrease: 0.1
+  DifficultyIncrease: 0.05

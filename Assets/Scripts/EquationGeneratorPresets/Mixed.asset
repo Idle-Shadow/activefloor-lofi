@@ -15,15 +15,15 @@ MonoBehaviour:
   TargetModes:
   - OperatorMode: {fileID: 11400000, guid: 44931d623d47ac54a98d107f6b557a9c, type: 2}
     LowestNumber: 1
-    HighestNumber: 60
+    HighestNumber: 30
   - OperatorMode: {fileID: 11400000, guid: 4e88e93453d7ad04e90e9fb5e40e39d8, type: 2}
     LowestNumber: 1
-    HighestNumber: 10
+    HighestNumber: 5
   - OperatorMode: {fileID: 11400000, guid: 507a7970b23aadf4ca6d0778382c0580, type: 2}
     LowestNumber: 1
-    HighestNumber: 15
+    HighestNumber: 10
   - OperatorMode: {fileID: 11400000, guid: 24dfad39a282e0c4b8a9dd1da696ce8a, type: 2}
     LowestNumber: 1
-    HighestNumber: 40
+    HighestNumber: 30
   IncreaseDifficultyWhenScored: 1
-  DifficultyIncrease: 0.1
+  DifficultyIncrease: 0.05
