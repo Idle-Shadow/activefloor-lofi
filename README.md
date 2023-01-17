@@ -21,5 +21,17 @@ The ‘Shaders’ and ‘Textures’ folder are packages from the unity store fo
 To build the project you need to build it for android. First you need to install ‘Android Build Support’ in Unity Hub before getting an android build. The android build file is a .apk file.
 
 ## How to run the project.
-To run the project, you need an android device to run the .apk file. Installing the .apk file on your android device to start the game. [Here](https://fontysmade.nl/activefloor-lava-floor/) you’ll find an example instruction build of the current version of the game for android.
-You can project the android device to the ActiveFloor by using a phone projection software.
+
+Android:
+
+    Make sure installing APK files is enabled on the target Android device
+    Download the latest Android APK from [this link](https://drive.google.com/drive/folders/1ve63HCM0cyZ6hlfkiMC4AWhTAlFxSTNC)
+    Locate and install the APK file onto the android device
+    Start the application
+    If you want to project it to the ActiveFloor, you can do so by using a phone software to project it to the ActiveFLoor.
+
+Windows
+
+    Download the latest zip packageof the game from [this link](https://drive.google.com/drive/folders/1KqTO491E2S4Cd2pccXP3Ifl0wbsRE9Qz)
+    Locate the downloaded zip package and extract the game files from it
+    Navigate to the location the game files were extracted to and open the ActiveFloor LoFi executable file
