@@ -23,15 +23,13 @@ To build the project you need to build it for android. First you need to install
 ## How to run the project.
 
 Android:
-
-    Make sure installing APK files is enabled on the target Android device
-    Download the latest Android APK from [this link](https://drive.google.com/drive/folders/1ve63HCM0cyZ6hlfkiMC4AWhTAlFxSTNC)
-    Locate and install the APK file onto the android device
-    Start the application
+    Make sure installing APK files is enabled on the target Android device.
+    Download the latest Android APK from [this link](https://drive.google.com/drive/folders/1ve63HCM0cyZ6hlfkiMC4AWhTAlFxSTNC).
+    Locate and install the APK file onto the android device.
+    Start the application.
     If you want to project it to the ActiveFloor, you can do so by using a phone software to project it to the ActiveFLoor.
 
-Windows
-
-    Download the latest zip packageof the game from [this link](https://drive.google.com/drive/folders/1KqTO491E2S4Cd2pccXP3Ifl0wbsRE9Qz)
-    Locate the downloaded zip package and extract the game files from it
-    Navigate to the location the game files were extracted to and open the ActiveFloor LoFi executable file
+Windows:
+    Download the latest zip package of the game from [this link](https://drive.google.com/drive/folders/1KqTO491E2S4Cd2pccXP3Ifl0wbsRE9Qz).
+    Locate the downloaded zip package and extract the game files from it.
+    Navigate to the location the game files were extracted to and open the ActiveFloor LoFi executable file.
