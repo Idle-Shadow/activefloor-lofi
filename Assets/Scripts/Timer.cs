@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour
             }
             else
             {
-                TimerExpired.Invoke();
+                if (TimerExpired != null) TimerExpired.Invoke();
                 TimeRemaining = 0;
                 TimerIsRunning = false;
             }
@@ -48,5 +48,9 @@ public class Timer : MonoBehaviour
     public void SubtractTime(float amount)
     {
         TimeRemaining -= amount;
+        if(TimeRemaining < 0)
+        {
+            TimeRemaining = 0;
+        }
     }
 }

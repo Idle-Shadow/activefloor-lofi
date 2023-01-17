@@ -1,18 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EquationGenerator : MonoBehaviour
 {
-    public int HighestNumberAddition = 100;
-    public int HighestNumberMultiplication = 20;
-    public OperatorMode GlobalMode { get; private set; } = OperatorMode.add;
-    public OperatorMode CurrentMode { get; private set; }
-    public int CurrentHighestNumber { get; private set; }
-    public bool IncreaseDifficultyWhenScored = false;
-    public float DifficultyIncrease = .1f;
-
-    public delegate void EquationGeneratorEvents();
-    public static event EquationGeneratorEvents GlobalModeChanged;
+    public EquationGeneratorPreset GeneratorPreset;
+    public EquationGeneratorPreset.ModeSettings CurrentModeSettings { get; private set; }
 
     int _difficulty = 0;
 
@@ -26,64 +17,68 @@ public class EquationGenerator : MonoBehaviour
         MatchDirector.PointScored -= IncreaseDifficulty;
     }
 
-    public (int, int, int, string) GenerateEquation()
+    public void SetNewGeneratorPreset (EquationGeneratorPreset preset)
     {
-        (int, int, int, string) equation = (0, 0, 0, "");
+        GeneratorPreset = preset;
+    }
 
-        switch (GlobalMode)
-        {
-            case OperatorMode.add:
-                CurrentMode = OperatorMode.add;
-                CurrentHighestNumber = HighestNumberAddition;
-                break;
-            case OperatorMode.multiply:
-                CurrentMode = OperatorMode.multiply;
-                CurrentHighestNumber = HighestNumberMultiplication;
-                break;
-            case OperatorMode.mixed:
-                CurrentMode = (OperatorMode)Random.Range(0, 2);
-                CurrentHighestNumber = CurrentMode == OperatorMode.add ? HighestNumberAddition : HighestNumberMultiplication;
-                break;
-        }
+    public (int, int, int) GenerateEquation()
+    {
+        (int, int, int) equation = (0, 0, 0);
 
-        int difficultyAddition = Mathf.FloorToInt(_difficulty * DifficultyIncrease * CurrentHighestNumber);
-        equation.Item1 = Random.Range(1 + difficultyAddition, CurrentHighestNumber + difficultyAddition);
-        equation.Item2 = Random.Range(1 + difficultyAddition, CurrentHighestNumber + difficultyAddition);
+        CurrentModeSettings = GeneratorPreset.TargetModes[Random.Range(0, GeneratorPreset.TargetModes.Count)];
 
-        switch (CurrentMode)
+        (int, int) randomNumbers = GenerateRandomNumbers();
+        equation.Item1 = randomNumbers.Item1;
+        equation.Item2 = randomNumbers.Item2;
+
+        switch (CurrentModeSettings.OperatorMode.Mode)
         {
             case OperatorMode.add:
                 equation.Item3 = equation.Item1 + equation.Item2;
-                equation.Item4 = "+";
                 break;
             case OperatorMode.multiply:
                 equation.Item3 = equation.Item1 * equation.Item2;
-                equation.Item4 = "x";
+                break;
+            case OperatorMode.subtract:
+                equation.Item3 = equation.Item1 - equation.Item2;
+                break;
+            case OperatorMode.divide:
+                equation.Item3 = equation.Item1 / equation.Item2;
                 break;
         }
 
         return equation;
     }
 
-    public void NextGlobalMode()
-    {
-        int newModeIndex = (int)GlobalMode + 1;
-        if (newModeIndex > 2) newModeIndex = 0;
-        GlobalMode = (OperatorMode)newModeIndex;
-        GlobalModeChanged.Invoke();
-    }
-
-    public void SetGlobalMode(int modeIndex)
-    {
-        GlobalMode = (OperatorMode)modeIndex;
-        GlobalModeChanged.Invoke();
-    }
-
     void IncreaseDifficulty()
     {
-        if (IncreaseDifficultyWhenScored)
+        if (GeneratorPreset.IncreaseDifficultyWhenScored)
         {
             _difficulty++;
+        }
+    }
+
+    (int, int) GenerateRandomNumbers()
+    {
+        int difficultyAddition = Mathf.FloorToInt(_difficulty * GeneratorPreset.DifficultyIncrease * CurrentModeSettings.HighestNumber);
+        int floor = CurrentModeSettings.LowestNumber + difficultyAddition;
+        int ceil = CurrentModeSettings.HighestNumber + difficultyAddition;
+        int number1;
+        int number2;
+
+        do {
+            number1 = Random.Range(floor, ceil);
+            number2 = Random.Range(floor, ceil);
+        } while (number1 == number2 || (CurrentModeSettings.OperatorMode.Mode == OperatorMode.divide && number1 % number2 != 0));
+
+        switch (CurrentModeSettings.OperatorMode.Mode)
+        {
+            case OperatorMode.subtract:
+                if (number1 > number2) return (number1, number2);
+                else return (number2, number1);
+            default:
+                return (number1, number2);
         }
     }
 }

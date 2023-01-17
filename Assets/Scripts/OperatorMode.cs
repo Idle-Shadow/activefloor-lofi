@@ -2,5 +2,6 @@ public enum OperatorMode
 {
     add,
     multiply,
-    mixed
+    subtract,
+    divide
 }

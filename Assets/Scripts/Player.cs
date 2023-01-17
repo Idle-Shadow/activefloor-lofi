@@ -1,38 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public AnswerButton[] Buttons;
+    public int ActualAnswer = 0;
     public bool HasAnswered = false;
-    public AnswerButton ChosenAnswer;
+    public AnswerButton ChosenAnswer { get; private set; }
 
-    public int ButtonNumber { get; private set;} = 0;
-
-    public delegate void PlayerEvents();
-    public static event PlayerEvents PlayerHasAnswered;
-
-    public void ButtonPressed(int buttonIndex)
+    public void ButtonPressed(AnswerButton answer)
     {
-        for (int i = 0; i < Buttons.Length; i++)
+        if (ChosenAnswer != null && Application.platform != RuntimePlatform.Android)
         {
-            if (buttonIndex == i)
-            {
-                Buttons[i].Press();
-                ChosenAnswer = Buttons[i];
-                ChosenAnswer.ButtonNumber = i;
-                ButtonNumber = i;
-            }
-            else Buttons[i].PressReset();
+            ChosenAnswer.PressReset();
         }
-        HasAnswered = true;
-        PlayerHasAnswered.Invoke();
+
+        ChosenAnswer = answer;
+    }
+
+    public void ButtonReleased()
+    {
+        ChosenAnswer = null;
     }
 
     public void ResetPlayer()
     {
-        foreach (AnswerButton button in Buttons) button.IsPressed = false;
-        HasAnswered = false;
+        foreach (AnswerButton button in Buttons)
+        {
+            button.PressResetAndRelease();
+            button.SetActive(true);
+        }
+    }
+
+    public void EnableButtons (bool active)
+    {
+        foreach (AnswerButton button in Buttons) button.SetActive(active);
     }
 }
